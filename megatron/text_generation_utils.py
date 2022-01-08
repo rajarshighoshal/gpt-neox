@@ -218,12 +218,16 @@ def stream_tokens(
 
     model.eval()
 
+    print("Starting length of context tokens: ", len(context_tokens))
+
     # pad batch in order to allow conversion to tensor
     context_tokens, context_lengths = pad_batch(
         copy.deepcopy(context_tokens),
         pad_id=neox_args.tokenizer.eod,
         pad_len=neox_args.seq_length,
     )
+
+    print("after padding length of context tokens: ", len(context_tokens))
 
     # convert to tensor and broadcast
     context_tokens = torch.cuda.LongTensor(context_tokens)
@@ -247,6 +251,7 @@ def stream_tokens(
 
     # produce batch relevant attention_mask and position_ids
     context_tokens, attention_mask, position_ids = get_batch(neox_args, context_tokens)
+    print("after get_batch length of context tokens: ", len(context_tokens))
 
     # determine the smallest context length at which first output is produced
     context_length = token_generation_start_index.min().item()

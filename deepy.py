@@ -36,6 +36,4 @@ if wandb_token is not None:
     os.environ['WANDB_API_KEY'] = wandb_token
 
 if __name__ == '__main__':
-    print("deepspeed_main_args: ")
-    print(deepspeed_main_args)
     main(deepspeed_main_args)
