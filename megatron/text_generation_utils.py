@@ -131,8 +131,7 @@ def forward_model(neox_args, model, model_inputs):
     """
     # because someone at deepspeed decided pipeline modules couldn't use kwargs,
     # we need to forward a pipe model by access model.module() instead of just model()
-    print("neox_args: ", neox_args)
-    print("model inputs: ", model_inputs)
+    print("layer past: ", model_inputs[4])
 
     torch.distributed.barrier()
     if neox_args.pipe_parallel_size <= 1:
