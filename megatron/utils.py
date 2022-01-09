@@ -90,8 +90,11 @@ def get_ltor_masks_and_position_ids(data, eod_token, eod_mask_loss=False):
         loss_mask[data == eod_token] = 0.0
 
     # Position ids.
+
     position_ids = torch.arange(seq_length, dtype=torch.long, device=data.device)
+    print("Position IDs: ", position_ids)
     position_ids = position_ids.unsqueeze(0).expand_as(data)
+    print("Position IDs return: ", position_ids)
 
     return attention_mask, loss_mask, position_ids
 
